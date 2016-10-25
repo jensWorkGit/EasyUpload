@@ -1,14 +1,14 @@
 /* js/fileAppControllers.js */
 
-function fileCtrl ($scope) {
+function fileCtrl($scope) {
     $scope.partialDownloadLink = 'http://localhost:8080/download?filename=';
     $scope.filename = '';
 
-    $scope.uploadFile = function() {
+    $scope.uploadFile = function () {
         $scope.processDropzone();
     };
 
-    $scope.reset = function() {
+    $scope.reset = function () {
         $scope.resetDropzone();
     };
 }

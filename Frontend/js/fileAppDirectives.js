@@ -2,7 +2,7 @@
 
 function dropzone() {
 
-    return function(scope, element, attrs) {
+    return function (scope, element, attrs) {
 
         var config = {
             url: 'http://localhost:8080/upload',
@@ -14,12 +14,12 @@ function dropzone() {
         };
 
         var eventHandlers = {
-            'addedfile': function(file) {
+            'addedfile': function (file) {
                 scope.file = file;
-                if (this.files[1]!=null) {
+                if(this.files[1] != null) {
                     this.removeFile(this.files[0]);
                 }
-                scope.$apply(function() {
+                scope.$apply(function () {
                     scope.fileAdded = true;
                 });
             },
@@ -30,15 +30,15 @@ function dropzone() {
 
         dropzone = new Dropzone(element[0], config);
 
-        angular.forEach(eventHandlers, function(handler, event) {
+        angular.forEach(eventHandlers, function (handler, event) {
             dropzone.on(event, handler);
         });
 
-        scope.processDropzone = function() {
+        scope.processDropzone = function () {
             dropzone.processQueue();
         };
 
-        scope.resetDropzone = function() {
+        scope.resetDropzone = function () {
             dropzone.removeAllFiles();
         }
     }
