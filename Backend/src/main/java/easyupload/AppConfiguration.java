@@ -21,15 +21,14 @@ public class AppConfiguration {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setTestOnBorrow(true);
         dataSource.setValidationQuery("SELECT 1");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/easyupload");
-        dataSource.setUsername("easyupload");
-        dataSource.setPassword("password");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/easyupload?createDatabaseIfNotExist=true");
+        dataSource.setUsername("root");
+        dataSource.setPassword("");
         return dataSource;
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-            DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setPackagesToScan("easyupload.entity");
         emf.setPersistenceProvider(new HibernatePersistenceProvider());

@@ -21,11 +21,10 @@ public class FileController {
     FileUploadService fileUploadService;
 
     // Download a file
-    @RequestMapping(
-            value = "/download",
-            method = RequestMethod.GET
-    )
-    public ResponseEntity<?> downloadFile(@RequestParam("filename") String filename) {
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public ResponseEntity<?> downloadFile(
+            @RequestParam("filename")
+                    String filename) {
 
         FileUpload fileUpload = fileUploadService.findByFilename(filename);
 
@@ -43,21 +42,17 @@ public class FileController {
         try {
             primaryType = fileUpload.getMimeType().split("/")[0];
             subType = fileUpload.getMimeType().split("/")[1];
-        }
-        catch (IndexOutOfBoundsException | NullPointerException ex) {
+        } catch (IndexOutOfBoundsException | NullPointerException ex) {
             return new ResponseEntity<>("{}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        headers.setContentType( new MediaType(primaryType, subType) );
+        headers.setContentType(new MediaType(primaryType, subType));
 
         return new ResponseEntity<>(fileUpload.getFile(), headers, HttpStatus.OK);
     }
 
 
-    @RequestMapping(
-            value = "/upload",
-            method = RequestMethod.POST
-    )
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public ResponseEntity uploadFile(MultipartHttpServletRequest request) {
 
         try {
@@ -74,8 +69,7 @@ public class FileController {
 
                 fileUploadService.uploadFile(newFile);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>("{}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
